@@ -4,21 +4,21 @@
 
 Servidor:
 
-`babar.db.elephantsql.com`
+`josifhub-database.postgres.database.azure.com`
 
 Usuário:
 
-`yddykwci`
+`josifHubAdm`
 
 Banco de dados:
 
-`yddykwci`
+`josifhub-database`
 
 Senha:
 
-`nl1eA3Ba0rlfMw14XXkf09tT6_kBITyw`
+`4U6g2hBEJDK#@U`
 
 URL:
 
-`postgres://yddykwci:nl1eA3Ba0rlfMw14XXkf09tT6_kBITyw@babar.db.elephantsql.com/yddykwci`
+`jdbc:postgresql://josifhub-database.postgres.database.azure.com/josifHub`
 
