@@ -1,0 +1,15 @@
+# Path: src\main\resources\application.yml
+server:
+  port: 8080
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/josifHub
+    username: postgres
+    password: postgres
+
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
