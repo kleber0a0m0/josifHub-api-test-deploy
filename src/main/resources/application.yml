@@ -4,9 +4,9 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://babar.db.elephantsql.com/yddykwci
-    username: yddykwci
-    password: nl1eA3Ba0rlfMw14XXkf09tT6_kBITyw
+    url: jdbc:postgresql://josifhub-database.postgres.database.azure.com/josifHub
+    username: josifHubAdm
+    password: 4U6g2hBEJDK#@U
 
 
   jpa:
