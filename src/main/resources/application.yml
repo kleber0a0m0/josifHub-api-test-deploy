@@ -7,8 +7,7 @@ spring:
     url: jdbc:postgresql://josifhub-database.postgres.database.azure.com/josifHub
     username: josifHubAdm
     password: 4U6g2hBEJDK#@U
-
-
+   
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
