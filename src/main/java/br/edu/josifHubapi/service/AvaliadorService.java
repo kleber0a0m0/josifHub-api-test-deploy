@@ -16,6 +16,7 @@ public class AvaliadorService {
     @Autowired
     private final AvaliadorRepository avaliadorRepository;
 
+
     public Avaliador insert(AvaliadorDTO avaliadorDTO) {
         if(existsAvaliadorByCpf(avaliadorDTO.getCpf())) {
             return avaliadorRepository.findAvaliadorByCpf(avaliadorDTO.getCpf());

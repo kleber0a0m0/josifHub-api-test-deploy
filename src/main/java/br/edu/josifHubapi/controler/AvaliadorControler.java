@@ -15,6 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping(value = "/api/v1/avaliador", produces = MediaType.APPLICATION_JSON_VALUE)
 public class AvaliadorControler {
+
     @Autowired
     AvaliadorService avaliadorService;
 

@@ -14,6 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping(value = "/api/v1/trabalhos", produces = MediaType.APPLICATION_JSON_VALUE)
 public class TrabalhosControler {
+
     @Autowired
     TrabalhosService trabalhoService;
 

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 public interface AvaliadorRepository extends JpaRepository<Avaliador, Long> {
 
 
+
     Boolean existsAvaliadorByCpf(String cpf);
     Avaliador findAvaliadorByCpf(String cpf);
 
