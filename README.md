@@ -30,6 +30,4 @@ URL:
 | [GET]  | `/api/v1/avaliador`  | Retorna os avaliadores                        |
 | [GET]  | `/api/v1/trabalhos`  | Retorna os trabalhos e os respectivos autores |
 
--  
-- 
 
