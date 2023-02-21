@@ -2,6 +2,7 @@ package br.edu.josifHubapi.service;
 import br.edu.josifHubapi.domain.Trabalhos;
 import br.edu.josifHubapi.dto.TrabalhoDTO;
 import br.edu.josifHubapi.repository.TrabalhosRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,6 +47,12 @@ public class TrabalhosService {
         return trabalhoRepository.findById(codigo);
     }
 
+    @Transactional
+    public Trabalhos save(Trabalhos trabalho) {
+        return trabalhoRepository.save(trabalho);
+    }
+
+    @Transactional
     public void delete(Trabalhos trabalhos) {
         trabalhoRepository.delete(trabalhos);
     }
