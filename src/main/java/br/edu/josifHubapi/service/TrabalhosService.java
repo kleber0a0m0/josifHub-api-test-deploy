@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -39,5 +40,13 @@ public class TrabalhosService {
                 .build();
 
         return trabalhoRepository.save(item);
+    }
+
+    public Optional<Trabalhos> findById(Long codigo) {
+        return trabalhoRepository.findById(codigo);
+    }
+
+    public void delete(Trabalhos trabalhos) {
+        trabalhoRepository.delete(trabalhos);
     }
 }

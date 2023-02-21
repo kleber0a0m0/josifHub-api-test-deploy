@@ -1,6 +1,6 @@
 # josifHub-api
 
-##Banco de dados:
+## Banco de dados:
 
 Servidor:
 
@@ -25,9 +25,13 @@ URL:
 ## Lista de EndPoints
 
 ### Avaliador:
-| Método | EndPoint             | Resposta                                      |
-|--------|----------------------|-----------------------------------------------|
-| [GET]  | `/api/v1/avaliador`  | Retorna os avaliadores                        |
-| [GET]  | `/api/v1/trabalhos`  | Retorna os trabalhos e os respectivos autores |
+| Método   | EndPoint                     | Resposta                                      |
+|----------|------------------------------|-----------------------------------------------|
+| [GET]    | `/api/v1/avaliador`          | Retorna os avaliadores                        |
+| [POST]   | `/api/v1/avaliador`          | Adiciona o avaliador                          |
+| [GET]    | `/api/v1/trabalhos`          | Retorna os trabalhos e os respectivos autores |
+| [POST]   | `/api/v1/trabalhos`          | Adiciona o trabalho                           |
+| [PUT]    | `/api/v1/trabalhos/{codigo}` | Edita o trabalho                              |
+| [DELETE] | `/api/v1/trabalhos/{codigo}` | Exclui o trabalho                             |
 
 

@@ -4,11 +4,13 @@ import br.edu.josifHubapi.dto.TrabalhoDTO;
 import br.edu.josifHubapi.service.TrabalhosService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -26,6 +28,21 @@ public class TrabalhosControler {
     @PostMapping
     public ResponseEntity<Trabalhos> insert(@RequestBody TrabalhoDTO trabalhoDTO) {
         return ResponseEntity.ok(trabalhoService.insert(trabalhoDTO));
+    }
+
+
+    @DeleteMapping("/{codigo}")
+    public ResponseEntity<Object> deleteClient(@PathVariable(value = "codigo") Long codigo){
+        try {
+            Optional<Trabalhos> trabalhoServiceOptional = trabalhoService.findById(codigo);
+            if (!trabalhoServiceOptional.isPresent()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cliente não encontrado.");
+            }
+            trabalhoService.delete(trabalhoServiceOptional.get());
+            return ResponseEntity.status(HttpStatus.OK).body("Trabalho excluido com sucesso.");
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Erro ao excluir o trabalho!");
+        }
     }
 
 
