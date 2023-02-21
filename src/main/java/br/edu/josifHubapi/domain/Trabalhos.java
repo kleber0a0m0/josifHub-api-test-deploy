@@ -19,7 +19,7 @@ public class Trabalhos implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "codigo", nullable = false)
-    private Long id;
+    private Long codigo;
 
     @Column(name = "titulo", length = 50, nullable = false)
     private String titulo;

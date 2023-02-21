@@ -2,12 +2,14 @@ package br.edu.josifHubapi.service;
 import br.edu.josifHubapi.domain.Trabalhos;
 import br.edu.josifHubapi.dto.TrabalhoDTO;
 import br.edu.josifHubapi.repository.TrabalhosRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -39,5 +41,19 @@ public class TrabalhosService {
                 .build();
 
         return trabalhoRepository.save(item);
+    }
+
+    public Optional<Trabalhos> findById(Long codigo) {
+        return trabalhoRepository.findById(codigo);
+    }
+
+    @Transactional
+    public Trabalhos save(Trabalhos trabalho) {
+        return trabalhoRepository.save(trabalho);
+    }
+
+    @Transactional
+    public void delete(Trabalhos trabalhos) {
+        trabalhoRepository.delete(trabalhos);
     }
 }
