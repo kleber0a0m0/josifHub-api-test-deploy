@@ -1,0 +1,24 @@
+Avaliadores:
+
+INSERT INTO public.avaliador ("area-atuacao", "area-formacao", cpf, email, instituicao, lattes, nome, senha, telefone, titulacao)
+VALUES ('Administração', 'Administração; Economia, Educação - Ensino-aprendizagem - metodologias, práticas e avaliação, Educação - Educação Profissional e Tecnológica', '5148519614', 'dayanny.lopes@ifsuldeminas.edu.br', 'IFSULDEMINAS - Campus Machado', 'http://lattes.cnpq.br/0431043279351530', 'Dayanny Carvalho Lopes Alves', '', '35999181346', 'Doutorado');
+
+INSERT INTO public.avaliador ("area-atuacao", "area-formacao", cpf, email, instituicao, lattes, nome, senha, telefone, titulacao)
+VALUES ('Ciência e Tecnologia de Alimentos', 'Ciência do Alimentos (pós-colheita e processamento de frutas e hortaliças)', '3401798642', 'brigida.monteiro@ifsuldeminas.edu.br', 'IFSULDEMINAS - Campus Machado', 'http://lattes.cnpq.br/0861881721818135', 'Brígida Monteiro Vilas Boas', '', '(35)99822-5875', 'Doutorado');
+
+INSERT INTO public.avaliador ("area-atuacao", "area-formacao", cpf, email, instituicao, lattes, nome, senha, telefone, titulacao)
+VALUES ('Nutrição', 'Ciência e Tecnologia de Alimentos, Educação - Gestão, Planejamento, Avaliação e Políticas Públicas Educacionais, Enfermagem; Medicina; Odontologia; Farmácia; Nutrição; Psicologia', '031.830.566.66', 'edilainekawachi@yahoo.com.br', 'IFSULDEMINAS - Campus Machado', 'http://lattes.cnpq.br/9523254335331097', 'Edilaine Cristina de Melo Kawachi', '', '(11)953224770', 'Especialização');
+
+INSERT INTO public.avaliador ("area-atuacao", "area-formacao", cpf, email, instituicao, lattes, nome, senha, telefone, titulacao)
+VALUES ('Biologia Geral, Educação - Ensino-aprendizagem - metodologias, práticas e avaliação', 'Ciência Biológicas - biologia geral', '22180194854', 'tatiane.souto@ifsuldeminas.edu.br', 'IFSULDEMINAS - Campus Passos', 'http://lattes.cnpq.br/3528243995707611', 'TATIANE BELTRAMINI SOUTO', '', '35998692665', 'Doutorado');
+
+INSERT INTO public.avaliador ("area-atuacao", "area-formacao", cpf, email, instituicao, lattes, nome, senha, telefone, titulacao)
+VALUES ('Educação - Currículos Específicos; Orientação e Aconselhamento, Educação - Ensino-aprendizagem - metodologias, práticas e avaliação, Educação - Ética, Direitos Humanos; Educação Especial e Inclusão, Educação - Tópicos Específicos da Educação, Filosofia; Sociologia; Ciência Política; Antropologia; Arqueologia; História; Teologia', 'Educação, Educação Inclusiva, Libras', '11049020600', 'welisson.silva@ifsuldeminas.edu.br', 'IFSULDEMINAS - Campus Passos', 'http://lattes.cnpq.br/6849416732411336', 'WELISSON MICHAEL SILVA', '', '12996798817', 'Especialização');
+
+INSERT INTO public.avaliador ("area-atuacao", "area-formacao", cpf, email, instituicao, lattes, nome, senha, telefone, titulacao)
+VALUES ('Artes; Comunicação, Letras; Liguística', 'Jornalismo/Letras - Português/Inglês - Linguística', '7643035628', 'danilo.vizibeli@ifsuldeminas.edu.br', 'IFSULDEMINAS - Campus Passos', 'http://lattes.cnpq.br/8142560156817712', 'Danilo Vizibeli', '', '(35)99159-2516', 'Doutorado');
+
+INSERT INTO public.avaliador ("area-atuacao", "area-formacao", cpf, email, instituicao, lattes, nome, senha, telefone, titulacao)
+VALUES ('Química, Engenharia Química', 'Ciências - Agroquímica', '4432458607', 'paulize.ramos@ifsuldeminas.edu.br', 'IFSULDEMINAS - Campus Machado', 'http://lattes.cnpq.br/6459430664098695', 'Paulize Honorato Ramos', '', '35997091985', 'Doutorado');
+
+
