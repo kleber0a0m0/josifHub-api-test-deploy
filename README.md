@@ -33,7 +33,6 @@ URL:
 | [PUT]    | `/api/v1/avaliador/{codigo}` | Edita o avaliador      |
 | [DELETE] | `/api/v1/avaliador/{codigo}` | Exclui o avaliador     |
 
-
 ### Trabalho:
 | Método    | EndPoint                     | Resposta                                      |
 |-----------|------------------------------|-----------------------------------------------|
@@ -42,7 +41,6 @@ URL:
 | [PUT]     | `/api/v1/trabalhos/{codigo}` | Edita o trabalho                              |
 | [DELETE]  | `/api/v1/trabalhos/{codigo}` | Exclui o trabalho                             |
 
-
 ### Autor:
 | Método   | EndPoint                  | Resposta           |
 |----------|---------------------------|--------------------|
@@ -50,5 +48,13 @@ URL:
 | [POST]   | `/api/v1/autor/`          | Adiciona o autor   |
 | [PUT]    | `/api/v1/autor/{codigo}`  | Edita o autor      |
 | [DELETE] | `/api/v1/autor/{codigo}`  | Deleta o autor     |
+
+### Área:
+| Método   | EndPoint                | Resposta         |
+|----------|-------------------------|------------------|
+| [GET]    | `/api/v1/area`          | Retorna as áreas |
+| [POST]   | `/api/v1/area`          | Adiciona a área  |
+| [PUT]    | `/api/v1/area/{codigo}` | Edita a área     |
+| [DELETE] | `/api/v1/area/{codigo}`  | Deleta a área    |
 
 

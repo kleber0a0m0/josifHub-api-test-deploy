@@ -1,9 +1,7 @@
 package br.edu.josifHubapi.controler;
 
 import br.edu.josifHubapi.domain.Avaliador;
-import br.edu.josifHubapi.domain.Trabalhos;
 import br.edu.josifHubapi.dto.AvaliadorDTO;
-import br.edu.josifHubapi.dto.TrabalhoDTO;
 import br.edu.josifHubapi.service.AvaliadorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
@@ -26,7 +24,6 @@ public class AvaliadorControler {
 
     @GetMapping
     public ResponseEntity<List<Avaliador>> findAll() {
-        System.out.println("aqui chegou no get");
         return ResponseEntity.ok(avaliadorService.getAll());
     }
     @PostMapping
