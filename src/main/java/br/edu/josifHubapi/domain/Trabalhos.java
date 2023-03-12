@@ -21,16 +21,16 @@ public class Trabalhos implements Serializable {
     @Column(name = "codigo", nullable = false)
     private Long codigo;
 
-    @Column(name = "titulo", length = 50, nullable = false)
+    @Column(name = "titulo", length = 5000, nullable = false)
     private String titulo;
 
-    @Column(name = "resumo", length = 50, nullable = false)
+    @Column(name = "resumo", length = 5000, nullable = false)
     private String resumo;
 
-    @Column(name = "palavras-chave", length = 50, nullable = false)
+    @Column(name = "palavras-chave", length = 5000, nullable = false)
     private String palavrasChave;
 
-    @Column(name = "area", length = 50, nullable = false)
+    @Column(name = "area", length = 5000, nullable = false)
     private String area;
 
     @JoinColumn(name = "autor1")

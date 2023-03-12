@@ -23,34 +23,34 @@ public class Avaliador implements Serializable {
     @Column(name = "codigo", nullable = false)
     private Long id;
 
-    @Column(name = "nome", length = 50, nullable = false)
+    @Column(name = "nome", length = 5000, nullable = false)
     private String nome;
 
-    @Column(name = "email", length = 50, nullable = false)
+    @Column(name = "email", length = 5000, nullable = false)
     private String email;
 
-    @Column(name = "senha", length = 50, nullable = false)
+    @Column(name = "senha", length = 5000, nullable = false)
     private String senha;
 
-    @Column(name = "telefone", length = 50, nullable = false)
+    @Column(name = "telefone", length = 5000, nullable = false)
     private String telefone;
 
-    @Column(name = "cpf", length = 50, nullable = false)
+    @Column(name = "cpf", length = 5000, nullable = false)
     private String cpf;
 
-    @Column(name = "lattes", length = 50, nullable = false)
+    @Column(name = "lattes", length = 5000, nullable = false)
     private String lattes;
 
-    @Column(name = "area-formacao", length = 50, nullable = false)
+    @Column(name = "area-formacao", length = 5000, nullable = false)
     private String areaFormacao;
 
-    @Column(name = "instituicao", length = 50, nullable = false)
+    @Column(name = "instituicao", length = 5000, nullable = false)
     private String instituicao;
 
-    @Column(name = "area-atuacao", length = 50, nullable = false)
+    @Column(name = "area-atuacao", length = 5000, nullable = false)
     private String areaAtuacao;
 
-    @Column(name = "titulacao", length = 50, nullable = false)
+    @Column(name = "titulacao", length = 5000, nullable = false)
     private String titulacao;
 
 }
