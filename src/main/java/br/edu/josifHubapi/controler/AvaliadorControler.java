@@ -35,7 +35,7 @@ public class AvaliadorControler {
     public ResponseEntity<Object> deleteAvaliador(@PathVariable(value = "codigo") Long codigo){
         try {
             Optional<Avaliador> avaliadorOptional = avaliadorService.findById(codigo);
-            if (!avaliadorOptional.isPresent()) {
+            if (avaliadorOptional.isEmpty()) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Avaliador não encontrado.");
             }
             avaliadorService.delete(avaliadorOptional.get());
@@ -48,7 +48,7 @@ public class AvaliadorControler {
     @PutMapping("/{codigo}")
     public ResponseEntity<Object> updateAvaliador(@PathVariable(value = "codigo") Long codigo, @RequestBody AvaliadorDTO avaliadorDTO){
         Optional<Avaliador> avaliadorOptional = avaliadorService.findById(codigo);
-        if (!avaliadorOptional.isPresent()) {
+        if (avaliadorOptional.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Avaliador não encontrado.");
         }else{
             var avaliadorModel = avaliadorOptional.get();
