@@ -40,7 +40,7 @@ public class AvaliadorService {
                 .lattes(avaliadorDTO.getLattes())
                 .areaFormacao(avaliadorDTO.getAreaFormacao())
                 .instituicao(avaliadorDTO.getInstituicao())
-                .areaAtuacao(avaliadorDTO.getAreaAtuacao())
+                //.areaAtuacao(avaliadorDTO.getAreaAtuacao())
                 .titulacao(avaliadorDTO.getTitulacao())
                 .build();
         return avaliadorRepository.save(item);

@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Set;
+
 @Data
 @Builder
 @Entity
@@ -19,5 +21,8 @@ public class Area {
 
     @Column(name = "nome", length = 5000, nullable = false)
     private String nome;
+
+    @ManyToMany(mappedBy = "areaAtuacao")
+    Set<Avaliador> avaliador;
 
 }

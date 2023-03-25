@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.Set;
 
 @Data
 @Builder
@@ -21,7 +22,7 @@ public class Avaliador implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "codigo", nullable = false)
-    private Long id;
+    private Long codigo;
 
     @Column(name = "nome", length = 5000, nullable = false)
     private String nome;
@@ -47,8 +48,12 @@ public class Avaliador implements Serializable {
     @Column(name = "instituicao", length = 5000, nullable = false)
     private String instituicao;
 
-    @Column(name = "area-atuacao", length = 5000, nullable = false)
-    private String areaAtuacao;
+    @ManyToMany
+    @JoinTable(
+            name = "avaliador_area",
+            joinColumns = @JoinColumn(name = "avaliador_codigo"),
+            inverseJoinColumns = @JoinColumn(name = "area_codigo"))
+    Set<Area> areaAtuacao;
 
     @Column(name = "titulacao", length = 5000, nullable = false)
     private String titulacao;
