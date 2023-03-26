@@ -1,7 +1,9 @@
 package br.edu.josifHubapi.service;
 
+import br.edu.josifHubapi.domain.Area;
 import br.edu.josifHubapi.domain.Avaliador;
 import br.edu.josifHubapi.domain.Trabalhos;
+import br.edu.josifHubapi.dto.AreaDTO;
 import br.edu.josifHubapi.dto.AvaliadorDTO;
 import br.edu.josifHubapi.dto.TrabalhoDTO;
 import br.edu.josifHubapi.repository.AreaRepository;
@@ -17,8 +19,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class AvaliadorService {
@@ -26,28 +30,48 @@ public class AvaliadorService {
     @Autowired
     AvaliadorRepository avaliadorRepository;
 
+    @Autowired
+    AreaRepository areaRepository;
+
+
+
     public List<Avaliador> getAll(){
         return avaliadorRepository.findAll();
     }
 
-    public Avaliador insert(AvaliadorDTO avaliadorDTO) {
-        if(existsAvaliadorByCpf(avaliadorDTO.getCpf())) {
-            return avaliadorRepository.findAvaliadorByCpf(avaliadorDTO.getCpf());
+    public ResponseEntity insert(AvaliadorDTO avaliadorDTO) {
+        // Cria uma nova instância de Avaliador a partir do DTO enviado pelo cliente
+        Avaliador avaliador = new Avaliador();
+
+        // Copia as propriedades do DTO para a instância de Avaliador usando a biblioteca BeanUtils do Spring
+        BeanUtils.copyProperties(avaliadorDTO, avaliador);
+
+        // Cria um conjunto vazio para armazenar as áreas de atuação do avaliador
+        Set<Area> areasAtuacao = new HashSet<>();
+
+        // Para cada área enviada pelo cliente, busca a área correspondente no banco de dados e adiciona ao conjunto de áreas do avaliador
+        for (AreaDTO areaDTO : avaliadorDTO.getAreasAtuacao()) {
+            Optional<Area> area = areaRepository.findById(areaDTO.getCodigo());
+            area.ifPresent(areasAtuacao::add);
         }
-        Avaliador item = Avaliador.builder()
-                .nome(avaliadorDTO.getNome())
-                .email(avaliadorDTO.getEmail())
-                .senha(avaliadorDTO.getSenha())
-                .telefone(avaliadorDTO.getTelefone())
-                .cpf(avaliadorDTO.getCpf())
-                .lattes(avaliadorDTO.getLattes())
-                .areaFormacao(avaliadorDTO.getAreaFormacao())
-                .instituicao(avaliadorDTO.getInstituicao())
-                //.areaAtuacao(avaliadorDTO.getAreaAtuacao())
-                .titulacao(avaliadorDTO.getTitulacao())
-                .build();
-        return avaliadorRepository.save(item);
+
+        // Define as áreas de atuação do avaliador com as áreas obtidas acima
+        avaliador.setAreasAtuacao(areasAtuacao);
+
+        // Verifica se o CPF já existe no banco de dados
+        if (avaliadorRepository.existsAvaliadorByCpf(avaliadorDTO.getCpf())) {
+            return ResponseEntity
+                    .status(HttpStatus.CONFLICT)
+                    .body("O CPF '"+ avaliadorDTO.getCpf() +"' já está cadastrado");
+        }
+
+        // Salva o avaliador no banco de dados e retorna a instância salva
+        Avaliador avaliadorSalvo = avaliadorRepository.save(avaliador);
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(avaliadorSalvo);
     }
+
 
 
 
