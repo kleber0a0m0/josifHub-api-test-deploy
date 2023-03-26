@@ -2,22 +2,16 @@ package br.edu.josifHubapi.service;
 
 import br.edu.josifHubapi.domain.Area;
 import br.edu.josifHubapi.domain.Avaliador;
-import br.edu.josifHubapi.domain.Trabalhos;
 import br.edu.josifHubapi.dto.AreaDTO;
 import br.edu.josifHubapi.dto.AvaliadorDTO;
-import br.edu.josifHubapi.dto.TrabalhoDTO;
 import br.edu.josifHubapi.repository.AreaRepository;
 import br.edu.josifHubapi.repository.AvaliadorRepository;
 import jakarta.transaction.Transactional;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.HashSet;
 import java.util.List;

@@ -1,7 +1,7 @@
 package br.edu.josifHubapi.service;
-import br.edu.josifHubapi.domain.Trabalhos;
+import br.edu.josifHubapi.domain.Trabalho;
 import br.edu.josifHubapi.dto.TrabalhoDTO;
-import br.edu.josifHubapi.repository.TrabalhosRepository;
+import br.edu.josifHubapi.repository.TrabalhoRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,15 +14,15 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 
-public class TrabalhosService {
+public class TrabalhoService {
     @Autowired
-    private final TrabalhosRepository trabalhoRepository;
-    public List<Trabalhos> getAll(){
+    private final TrabalhoRepository trabalhoRepository;
+    public List<Trabalho> getAll(){
         return trabalhoRepository.findAll();
     }
 
-    public Trabalhos insert(TrabalhoDTO trabalhoDTO) {
-        Trabalhos item = Trabalhos.builder()
+    public Trabalho insert(TrabalhoDTO trabalhoDTO) {
+        Trabalho item = Trabalho.builder()
                 .titulo(trabalhoDTO.getTitulo())
                 .resumo(trabalhoDTO.getResumo())
                 .palavrasChave(trabalhoDTO.getPalavrasChave())
@@ -43,17 +43,17 @@ public class TrabalhosService {
         return trabalhoRepository.save(item);
     }
 
-    public Optional<Trabalhos> findById(Long codigo) {
+    public Optional<Trabalho> findById(Long codigo) {
         return trabalhoRepository.findById(codigo);
     }
 
     @Transactional
-    public Trabalhos save(Trabalhos trabalho) {
+    public Trabalho save(Trabalho trabalho) {
         return trabalhoRepository.save(trabalho);
     }
 
     @Transactional
-    public void delete(Trabalhos trabalhos) {
+    public void delete(Trabalho trabalhos) {
         trabalhoRepository.delete(trabalhos);
     }
 }

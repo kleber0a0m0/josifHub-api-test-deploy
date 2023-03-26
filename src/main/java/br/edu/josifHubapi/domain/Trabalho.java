@@ -5,6 +5,7 @@ import lombok.*;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
+import java.util.List;
 
 @Data
 @Builder
@@ -12,7 +13,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @Entity
 @Table(name = "trabalhos_cadastrados")
-public class Trabalhos implements Serializable {
+public class Trabalho implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -77,5 +78,54 @@ public class Trabalhos implements Serializable {
     @JoinColumn(name = "autor11")
     @ManyToOne
     private Autor autor11;
+
+    public void setAutores(List<Autor> autores) {
+        if (autores == null || autores.isEmpty()) {
+            return;
+        }
+
+        // Define o primeiro autor obrigatoriamente
+        this.autor1 = autores.get(0);
+
+        // Define os demais autores, se houverem
+        for (int i = 1; i < autores.size(); i++) {
+            Autor autor = autores.get(i);
+            switch (i) {
+                case 1:
+                    this.autor2 = autor;
+                    break;
+                case 2:
+                    this.autor3 = autor;
+                    break;
+                case 3:
+                    this.autor4 = autor;
+                    break;
+                case 4:
+                    this.autor5 = autor;
+                    break;
+                case 5:
+                    this.autor6 = autor;
+                    break;
+                case 6:
+                    this.autor7 = autor;
+                    break;
+                case 7:
+                    this.autor8 = autor;
+                    break;
+                case 8:
+                    this.autor9 = autor;
+                    break;
+                case 9:
+                    this.autor10 = autor;
+                    break;
+                case 10:
+                    this.autor11 = autor;
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
 
 }

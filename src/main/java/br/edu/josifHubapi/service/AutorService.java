@@ -1,13 +1,8 @@
 package br.edu.josifHubapi.service;
 
 import br.edu.josifHubapi.domain.Autor;
-import br.edu.josifHubapi.domain.Avaliador;
-import br.edu.josifHubapi.domain.Trabalhos;
 import br.edu.josifHubapi.dto.AutorDTO;
-import br.edu.josifHubapi.dto.AvaliadorDTO;
-import br.edu.josifHubapi.dto.TrabalhoDTO;
 import br.edu.josifHubapi.repository.AutorRepository;
-import br.edu.josifHubapi.repository.AvaliadorRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
