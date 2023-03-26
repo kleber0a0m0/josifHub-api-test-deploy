@@ -38,7 +38,6 @@ public class TrabalhoControler {
         System.out.println(trabalho.getAutor1());
         if(trabalho.getAutor1() != null) {
             autores.add(autorService.save(trabalho.getAutor1()));
-
         }
         if(trabalho.getAutor2() != null) {
             autores.add(autorService.save(trabalho.getAutor2()));
@@ -78,16 +77,39 @@ public class TrabalhoControler {
     }
 
     @PutMapping("/{codigo}")
-    public ResponseEntity<Object> updateTrabalho(@PathVariable(value = "codigo") Long codigo, @RequestBody TrabalhoDTO trabalhoDTO){
+    public ResponseEntity<Object> updateTrabalho(@PathVariable("codigo") Long codigo, @RequestBody Trabalho trabalho) {
         Optional<Trabalho> trabalhoOptional = trabalhoService.findById(codigo);
+
         if (!trabalhoOptional.isPresent()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Trabalho não encontrado.");
-        }else{
-            var trabalhoModel = trabalhoOptional.get();
-            BeanUtils.copyProperties(trabalhoDTO,trabalhoModel );
-            return ResponseEntity.status(HttpStatus.OK).body(trabalhoService.save(trabalhoModel));
         }
+
+        Trabalho trabalhoAntigo = trabalhoOptional.get();
+
+        trabalhoAntigo.setTitulo(trabalho.getTitulo());
+        trabalhoAntigo.setResumo(trabalho.getResumo());
+        trabalhoAntigo.setPalavrasChave(trabalho.getPalavrasChave());
+        trabalhoAntigo.setArea(trabalho.getArea());
+
+        trabalhoAntigo.setAutor1(autorService.teste(trabalho.getAutor1()));
+        trabalhoAntigo.setAutor2(autorService.teste(trabalho.getAutor2()));
+        trabalhoAntigo.setAutor2(autorService.teste(trabalho.getAutor3()));
+        trabalhoAntigo.setAutor2(autorService.teste(trabalho.getAutor4()));
+        trabalhoAntigo.setAutor2(autorService.teste(trabalho.getAutor5()));
+        trabalhoAntigo.setAutor2(autorService.teste(trabalho.getAutor6()));
+        trabalhoAntigo.setAutor2(autorService.teste(trabalho.getAutor7()));
+        trabalhoAntigo.setAutor2(autorService.teste(trabalho.getAutor8()));
+        trabalhoAntigo.setAutor2(autorService.teste(trabalho.getAutor9()));
+        trabalhoAntigo.setAutor2(autorService.teste(trabalho.getAutor10()));
+        trabalhoAntigo.setAutor2(autorService.teste(trabalho.getAutor11()));
+
+        trabalhoService.save(trabalhoAntigo);
+
+        return ResponseEntity.ok(trabalhoAntigo);
     }
+
+
+
 
     @DeleteMapping("/{codigo}")
     public ResponseEntity<Object> deleteTrabalho(@PathVariable(value = "codigo") Long codigo){
@@ -97,7 +119,7 @@ public class TrabalhoControler {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Trabalho não encontrado.");
             }
             trabalhoService.delete(trabalhoOptional.get());
-            return ResponseEntity.status(HttpStatus.OK).body("Trabalho excluido com sucesso.");
+            return ResponseEntity.status(HttpStatus.OK).body("Trabalho excluido com sucesso. POREM OS AUTORES FICARAM CADASTRADOS AINDA_ TODO: FAZER ELES SUMIREM");
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Erro ao excluir o trabalho! - ["+e.getMessage()+"]");
         }

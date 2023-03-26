@@ -1,6 +1,7 @@
 package br.edu.josifHubapi.service;
 
 import br.edu.josifHubapi.domain.Area;
+import br.edu.josifHubapi.domain.Autor;
 import br.edu.josifHubapi.domain.Avaliador;
 import br.edu.josifHubapi.dto.AreaDTO;
 import br.edu.josifHubapi.dto.AvaliadorDTO;

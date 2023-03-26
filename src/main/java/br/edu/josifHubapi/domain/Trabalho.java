@@ -1,10 +1,12 @@
 package br.edu.josifHubapi.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -126,6 +128,46 @@ public class Trabalho implements Serializable {
             }
         }
     }
+
+    @JsonBackReference
+    public List<Autor> getAutores() {
+        List<Autor> autores = new ArrayList<>();
+        if (autor1 != null) {
+            autores.add(autor1);
+        }
+        if (autor2 != null) {
+            autores.add(autor2);
+        }
+        if (autor3 != null) {
+            autores.add(autor3);
+        }
+        if (autor4 != null) {
+            autores.add(autor4);
+        }
+        if (autor5 != null) {
+            autores.add(autor5);
+        }
+        if (autor6 != null) {
+            autores.add(autor6);
+        }
+        if (autor7 != null) {
+            autores.add(autor7);
+        }
+        if (autor8 != null) {
+            autores.add(autor8);
+        }
+        if (autor9 != null) {
+            autores.add(autor9);
+        }
+        if (autor10 != null) {
+            autores.add(autor10);
+        }
+        if (autor11 != null) {
+            autores.add(autor11);
+        }
+        return autores;
+    }
+
 
 
 }
