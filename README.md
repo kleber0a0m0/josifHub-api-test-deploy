@@ -28,7 +28,7 @@ URL:
 ### Avaliador:
 | Método   | EndPoint                     | Resposta               |
 |----------|------------------------------|------------------------|
-| [GET]    | `/api/v1/avaliador`          | Retorna os avaliadores |
+| [GET]    | `/api/v1/avaliadores`        | Retorna os avaliadores |
 | [POST]   | `/api/v1/avaliador`          | Adiciona o avaliador   |
 | [PUT]    | `/api/v1/avaliador/{codigo}` | Edita o avaliador      |
 | [DELETE] | `/api/v1/avaliador/{codigo}` | Exclui o avaliador     |

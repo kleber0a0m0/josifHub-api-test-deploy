@@ -1,4 +1,4 @@
-package br.edu.josifHubapi.controler;
+package br.edu.josifHubapi.controller;
 
 import br.edu.josifHubapi.domain.Area;
 import br.edu.josifHubapi.dto.AreaDTO;
@@ -25,10 +25,10 @@ public class AreaControler {
         return ResponseEntity.ok(areaService.findAll());
     }
 
-    @PostMapping
-    public ResponseEntity<Area> insert(@RequestBody AreaDTO areaDTO) {
-        return ResponseEntity.status(HttpStatus.OK).body(areaService.insert(areaDTO));
-    }
+//    @PostMapping
+//    public ResponseEntity<Area> insert(@RequestBody AreaDTO areaDTO) {
+//        return ResponseEntity.status(HttpStatus.OK).body(areaService.insert(areaDTO));
+//    }
 
 
     @PutMapping("/{codigo}")

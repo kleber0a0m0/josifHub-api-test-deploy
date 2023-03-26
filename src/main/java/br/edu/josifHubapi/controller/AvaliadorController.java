@@ -1,4 +1,4 @@
-package br.edu.josifHubapi.controler;
+package br.edu.josifHubapi.controller;
 
 import br.edu.josifHubapi.domain.Avaliador;
 import br.edu.josifHubapi.dto.AvaliadorDTO;
@@ -16,16 +16,16 @@ import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(value = "/api/v1/avaliador", produces = MediaType.APPLICATION_JSON_VALUE)
-public class AvaliadorControler {
+@RequestMapping(value = "/api/v1/avaliadores", produces = MediaType.APPLICATION_JSON_VALUE)
+public class AvaliadorController {
 
     @Autowired
     AvaliadorService avaliadorService;
-
     @GetMapping
-    public ResponseEntity<List<Avaliador>> findAll() {
-        return ResponseEntity.ok(avaliadorService.getAll());
+    public List<Avaliador> findAllAvaliador(){
+        return avaliadorService.getAll();
     }
+
     @PostMapping
     public ResponseEntity<Avaliador> insert(@RequestBody AvaliadorDTO avaliadorDTO) {
         return ResponseEntity.ok(avaliadorService.insert(avaliadorDTO));

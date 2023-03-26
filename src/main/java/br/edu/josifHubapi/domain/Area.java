@@ -1,16 +1,18 @@
 package br.edu.josifHubapi.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.Set;
 
-@Data
-@Builder
+
+
 @Entity
+@Table(name = "areas")
+@Setter
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
 public class Area {
@@ -22,7 +24,8 @@ public class Area {
     @Column(name = "nome", length = 5000, nullable = false)
     private String nome;
 
-    @ManyToMany(mappedBy = "areaAtuacao")
-    Set<Avaliador> avaliador;
+    @ManyToMany(mappedBy = "areasAtuacao",fetch = FetchType.LAZY)
+    @JsonBackReference
+    Set<Avaliador> avaliadores;
 
 }

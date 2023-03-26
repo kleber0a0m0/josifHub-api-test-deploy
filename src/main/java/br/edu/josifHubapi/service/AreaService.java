@@ -21,12 +21,12 @@ public class AreaService {
         return areaRepository.findAll();
     }
 
-    public Area insert(AreaDTO areaDTO) {
-        Area item = Area.builder()
-                .nome(areaDTO.getNome())
-                .build();
-        return areaRepository.save(item);
-    }
+//    public Area insert(AreaDTO areaDTO) {
+//        Area item = Area.builder()
+//                .nome(areaDTO.getNome())
+//                .build();
+//        return areaRepository.save(item);
+//    }
 
     public Optional<Area> findById(Long codigo) {
         return areaRepository.findById(codigo);

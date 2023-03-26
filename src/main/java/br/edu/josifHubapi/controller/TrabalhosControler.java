@@ -1,4 +1,4 @@
-package br.edu.josifHubapi.controler;
+package br.edu.josifHubapi.controller;
 import br.edu.josifHubapi.domain.Trabalhos;
 import br.edu.josifHubapi.dto.TrabalhoDTO;
 import br.edu.josifHubapi.service.TrabalhosService;

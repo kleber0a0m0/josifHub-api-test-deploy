@@ -4,6 +4,7 @@ import br.edu.josifHubapi.domain.Avaliador;
 import br.edu.josifHubapi.domain.Trabalhos;
 import br.edu.josifHubapi.dto.AvaliadorDTO;
 import br.edu.josifHubapi.dto.TrabalhoDTO;
+import br.edu.josifHubapi.repository.AreaRepository;
 import br.edu.josifHubapi.repository.AvaliadorRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -20,12 +21,14 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor
 public class AvaliadorService {
 
     @Autowired
-    private final AvaliadorRepository avaliadorRepository;
+    AvaliadorRepository avaliadorRepository;
 
+    public List<Avaliador> getAll(){
+        return avaliadorRepository.findAll();
+    }
 
     public Avaliador insert(AvaliadorDTO avaliadorDTO) {
         if(existsAvaliadorByCpf(avaliadorDTO.getCpf())) {
@@ -47,9 +50,6 @@ public class AvaliadorService {
     }
 
 
-    public List<Avaliador> getAll(){
-        return avaliadorRepository.findAll();
-    }
 
     public Boolean existsAvaliadorByCpf(String cpf){
         return avaliadorRepository.existsAvaliadorByCpf(cpf);

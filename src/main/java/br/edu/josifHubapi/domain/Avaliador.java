@@ -1,5 +1,6 @@
 package br.edu.josifHubapi.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,7 +15,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "avaliador")
+@Table(name = "avaliadores")
 public class Avaliador implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -48,14 +49,18 @@ public class Avaliador implements Serializable {
     @Column(name = "instituicao", length = 5000, nullable = false)
     private String instituicao;
 
-    @ManyToMany
-    @JoinTable(
-            name = "avaliador_area",
-            joinColumns = @JoinColumn(name = "avaliador_codigo"),
-            inverseJoinColumns = @JoinColumn(name = "area_codigo"))
-    Set<Area> areaAtuacao;
-
     @Column(name = "titulacao", length = 5000, nullable = false)
     private String titulacao;
+
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinTable(name = "avaliador_area",
+            joinColumns = {
+                    @JoinColumn(name = "avaliador_codigo", referencedColumnName = "codigo")
+            },
+            inverseJoinColumns = {
+                    @JoinColumn(name = "area_codigo", referencedColumnName = "codigo")
+            }
+    )
+    Set<Area> areasAtuacao;
 
 }

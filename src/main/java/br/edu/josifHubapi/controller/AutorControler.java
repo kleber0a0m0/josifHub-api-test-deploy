@@ -1,12 +1,8 @@
-package br.edu.josifHubapi.controler;
+package br.edu.josifHubapi.controller;
 
 import br.edu.josifHubapi.domain.Autor;
-import br.edu.josifHubapi.domain.Trabalhos;
 import br.edu.josifHubapi.dto.AutorDTO;
-import br.edu.josifHubapi.dto.AvaliadorDTO;
-import br.edu.josifHubapi.dto.TrabalhoDTO;
 import br.edu.josifHubapi.service.AutorService;
-import br.edu.josifHubapi.service.AvaliadorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
