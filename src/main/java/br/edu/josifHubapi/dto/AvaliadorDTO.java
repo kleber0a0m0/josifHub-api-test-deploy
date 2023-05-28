@@ -1,10 +1,12 @@
 package br.edu.josifHubapi.dto;
 
+import br.edu.josifHubapi.domain.Area;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -23,5 +25,4 @@ public class AvaliadorDTO {
         private String areaFormacao;
         private String instituicao;
         private String titulacao;
-        private Set<AreaDTO> areasAtuacao;
 }

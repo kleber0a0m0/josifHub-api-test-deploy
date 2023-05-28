@@ -4,9 +4,9 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost/postgres
+    url: jdbc:postgresql://localhost:5432/josifhub
     username: postgres
-    password: postgres
+    password: root
    
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect

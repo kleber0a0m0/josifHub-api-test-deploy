@@ -80,7 +80,7 @@ public class TrabalhoControler {
     public ResponseEntity<Object> updateTrabalho(@PathVariable("codigo") Long codigo, @RequestBody Trabalho trabalho) {
         Optional<Trabalho> trabalhoOptional = trabalhoService.findById(codigo);
 
-        if (!trabalhoOptional.isPresent()) {
+        if (trabalhoOptional.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Trabalho não encontrado.");
         }
 
@@ -115,7 +115,7 @@ public class TrabalhoControler {
     public ResponseEntity<Object> deleteTrabalho(@PathVariable(value = "codigo") Long codigo){
         try {
             Optional<Trabalho> trabalhoOptional = trabalhoService.findById(codigo);
-            if (!trabalhoOptional.isPresent()) {
+            if (trabalhoOptional.isEmpty()) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Trabalho não encontrado.");
             }
             trabalhoService.delete(trabalhoOptional.get());
