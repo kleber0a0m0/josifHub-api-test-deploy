@@ -1,5 +1,6 @@
 package br.edu.josifHubapi.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,21 +8,23 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.util.List;
+import java.util.Set;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "avaliador")
+@Table(name = "avaliadores")
 public class Avaliador implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "codigo", nullable = false)
-    private Long id;
+    @Column(name = "codigo_avaliador", nullable = false)
+    private Long codigoAvaliador;
 
     @Column(name = "nome", length = 5000, nullable = false)
     private String nome;
@@ -46,9 +49,6 @@ public class Avaliador implements Serializable {
 
     @Column(name = "instituicao", length = 5000, nullable = false)
     private String instituicao;
-
-    @Column(name = "area-atuacao", length = 5000, nullable = false)
-    private String areaAtuacao;
 
     @Column(name = "titulacao", length = 5000, nullable = false)
     private String titulacao;

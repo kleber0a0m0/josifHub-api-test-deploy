@@ -26,21 +26,21 @@ URL:
 ## Lista de EndPoints
 
 ### Avaliador:
-| Método   | EndPoint                     | Resposta               |
-|----------|------------------------------|------------------------|
-| [GET]    | `/api/v1/avaliador`          | Retorna os avaliadores |
-| [POST]   | `/api/v1/avaliador`          | Adiciona o avaliador   |
-| [PUT]    | `/api/v1/avaliador/{codigo}` | Edita o avaliador      |
-| [DELETE] | `/api/v1/avaliador/{codigo}` | Exclui o avaliador     |
-
+| Método      | EndPoint                       | Resposta                                                                                                                                              |
+|-------------|--------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [GET]       | `/api/v1/avaliadores`          | Retorna os avaliadores <br/><br/>(Status 200 OK)                                                                                                      |
+| [POST]      | `/api/v1/avaliadores`          | Adiciona o avaliador e cadastra as suas areas de atuação <br/><br/> Ok:<br/>(Status 201 Created)  <br/><br/>CPF já existe:<br/>(Status 409 Conflict)  |
+| [PUT]       | `/api/v1/avaliadores/{codigo}` | Edita o avaliador  e as suas areas de atuação      <br/><br/> Ok:<br/>(Status 200 OK)<br/><br/> Codigo inexistente:<br/>(Status 404 Not Found)        |
+| [DELETE]*** | `/api/v1/avaliador/{codigo}`   | Exclui o avaliador (não exclui se tiver relacionamento)                                                                                               |
+*** Precisa de correção
 ### Trabalho:
-| Método    | EndPoint                     | Resposta                                      |
-|-----------|------------------------------|-----------------------------------------------|
-| [GET]     | `/api/v1/trabalhos`          | Retorna os trabalhos e os respectivos autores |
-| [POST]    | `/api/v1/trabalhos`          | Adiciona o trabalho                           |
-| [PUT]     | `/api/v1/trabalhos/{codigo}` | Edita o trabalho                              |
-| [DELETE]  | `/api/v1/trabalhos/{codigo}` | Exclui o trabalho                             |
-
+| Método      | EndPoint                     | Resposta                                                                         |
+|-------------|------------------------------|----------------------------------------------------------------------------------|
+| [GET]       | `/api/v1/trabalhos`          | Retorna os trabalhos e os respectivos autores <br/><br/> Ok:<br/>(Status 200 OK) |
+| [POST]      | `/api/v1/trabalhos`          | Adiciona o trabalho <br/><br/> Ok:<br/>(Status 201 Created)                      |
+| [PUT]       | `/api/v1/trabalhos/{codigo}` | Edita o trabalho <br/><br/> Ok:<br/>(Status 200 OK)<br/><br/> Codigo inexistente:<br/>(Status 404 Not Found)                                                                |
+| [DELETE]*** | `/api/v1/trabalhos/{codigo}` | Exclui o trabalho                                                                |
+*** Precisa de correção
 ### Autor:
 | Método   | EndPoint                  | Resposta           |
 |----------|---------------------------|--------------------|

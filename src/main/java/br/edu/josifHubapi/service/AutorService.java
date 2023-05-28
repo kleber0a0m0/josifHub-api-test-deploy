@@ -1,16 +1,13 @@
 package br.edu.josifHubapi.service;
 
 import br.edu.josifHubapi.domain.Autor;
-import br.edu.josifHubapi.domain.Avaliador;
-import br.edu.josifHubapi.domain.Trabalhos;
+import br.edu.josifHubapi.domain.Trabalho;
 import br.edu.josifHubapi.dto.AutorDTO;
-import br.edu.josifHubapi.dto.AvaliadorDTO;
-import br.edu.josifHubapi.dto.TrabalhoDTO;
 import br.edu.josifHubapi.repository.AutorRepository;
-import br.edu.josifHubapi.repository.AvaliadorRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -42,6 +39,30 @@ public class AutorService {
                 .build();
 
         return autorRepository.save(item);
+    }
+
+    public Autor teste(Autor autor){
+
+        if (autor != null) {
+            Optional<Autor> autorOptional = this.findById(autor.getCodigo());
+
+            if (!autorOptional.isPresent()) {
+                System.out.println("Autor não encontrado");
+            }
+
+            Autor autorAntigo = autorOptional.get();
+
+            autorAntigo.setNome(autor.getNome());
+            autorAntigo.setEmail(autor.getEmail());
+            autorAntigo.setSobrenome(autor.getSobrenome());
+            autorAntigo.setPais(autor.getPais());
+            autorAntigo.setInstituicao(autor.getInstituicao());
+            autorAntigo.setResumoBiografico(autor.getResumoBiografico());
+            autorAntigo.setORCID(autor.getORCID());
+
+            return autorAntigo;
+        }
+        return null;
     }
 
     @Transactional
