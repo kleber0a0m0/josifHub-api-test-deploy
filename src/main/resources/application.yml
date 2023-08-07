@@ -4,9 +4,9 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/josifhub
+    url: jdbc:postgresql://localhost:${JOSIF_HUB_POSTGRES_PORT:5432}/josifhub
     username: postgres
-    password: root
+    password: postgres
    
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
@@ -20,3 +20,7 @@ spring:
   banner:
     location: classpath:banner_com_cores.txt
 
+api:
+  security:
+    token:
+      secret: ${TOKEN_JWT_SECRET:123456789}

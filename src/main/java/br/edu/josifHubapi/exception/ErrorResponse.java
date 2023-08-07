@@ -1,4 +1,4 @@
-package br.edu.josifHubapi.Exceptions;
+package br.edu.josifHubapi.exception;
 
 public class ErrorResponse {
     private int errorCode;
