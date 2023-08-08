@@ -19,7 +19,17 @@ spring:
       enabled: always
   banner:
     location: classpath:banner_com_cores.txt
-
+  mail:
+    host: smtp.gmail.com #TODO: Criar variavel de ambiente
+    port: 587
+    username: noreply.josifhub@gmail.com #TODO: Criar variavel de ambiente
+    password: zzepdnzwyfulzsoa #TODO: Criar variavel de ambiente
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 api:
   security:
     token:

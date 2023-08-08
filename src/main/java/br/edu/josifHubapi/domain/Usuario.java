@@ -1,14 +1,10 @@
 package br.edu.josifHubapi.domain;
 
+import br.edu.josifHubapi.enums.SituacaoUsuario;
 import jakarta.persistence.*;
 import jakarta.transaction.Transactional;
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import org.springframework.context.annotation.Lazy;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -20,6 +16,7 @@ import java.util.stream.Collectors;
 @Table(name = "usuarios")
 @Entity(name = "Usuario")
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "codigo")
@@ -30,6 +27,19 @@ public class Usuario implements UserDetails {
     private Long codigo;
     private String email;
     private String senha;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = true, unique = false)
+    private SituacaoUsuario situacao;
+
+    private String tokenConfirmacaoCadastro;
+
+    public Usuario(String email, String senha, String tokenConfirmacaoCadastro) {
+        this.email = email;
+        this.senha = senha;
+        this.tokenConfirmacaoCadastro = tokenConfirmacaoCadastro;
+        this.situacao = SituacaoUsuario.PENDENTE_VALIDACAO_EMAIL;
+
+    }
 
     public Usuario(User user) {
         this.email = user.getUsername();
@@ -50,6 +60,11 @@ public class Usuario implements UserDetails {
             joinColumns = @JoinColumn(name = "userCodigo"),
             inverseJoinColumns = @JoinColumn(name = "roleCodigo"))
     private List<Roles> roles;
+
+    public Usuario(String email, String senha) {
+        this.email = email;
+        this.senha = senha;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
