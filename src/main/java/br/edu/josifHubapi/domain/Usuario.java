@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Table(name = "usuarios")
@@ -31,12 +32,12 @@ public class Usuario implements UserDetails {
     @Column(nullable = true, unique = false)
     private SituacaoUsuario situacao;
 
-    private String tokenConfirmacaoCadastro;
+    private UUID hashid;
 
-    public Usuario(String email, String senha, String tokenConfirmacaoCadastro) {
+    public Usuario(String email, String senha) {
         this.email = email;
         this.senha = senha;
-        this.tokenConfirmacaoCadastro = tokenConfirmacaoCadastro;
+        this.hashid = UUID.randomUUID();
         this.situacao = SituacaoUsuario.PENDENTE_VALIDACAO_EMAIL;
 
     }
@@ -61,10 +62,6 @@ public class Usuario implements UserDetails {
             inverseJoinColumns = @JoinColumn(name = "roleCodigo"))
     private List<Roles> roles;
 
-    public Usuario(String email, String senha) {
-        this.email = email;
-        this.senha = senha;
-    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

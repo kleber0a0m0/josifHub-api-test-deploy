@@ -28,6 +28,11 @@ public class SecurityFilter extends OncePerRequestFilter {
         if(token != null){
             var subject = tokenService.getSubject(token);
             var usuario = usuarioRepository.findByEmail(subject);
+            if(usuario.isEmpty()){
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                response.getWriter().write("Token incorreto");
+                return;
+            }
             var autenticacao = new UsernamePasswordAuthenticationToken(usuario, null, usuario.get().getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(autenticacao);
         }

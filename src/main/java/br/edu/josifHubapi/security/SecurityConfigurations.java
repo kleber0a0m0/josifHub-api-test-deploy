@@ -27,7 +27,14 @@ public class SecurityConfigurations {
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(req -> {
                     req.requestMatchers(HttpMethod.POST, "/login").permitAll();
-                    req.requestMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**","/context-path/**").permitAll(); //TODO remover documentação no ambiente de produção
+                    req.requestMatchers(
+                            "/v3/api-docs/**",//TODO remover documentação no ambiente de produção
+                            "/swagger-ui.html",
+                            "/swagger-ui/**",
+                            "/context-path/**",
+                            "/api/v1/usuarios",
+                            "/api/v1/login",
+                            "/api/v1/usuarios/confirmar-cadastro/**").permitAll();
                     req.anyRequest().authenticated();
                 })
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class).build();

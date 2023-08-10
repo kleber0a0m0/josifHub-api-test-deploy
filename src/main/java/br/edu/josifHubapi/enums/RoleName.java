@@ -6,5 +6,4 @@ public enum RoleName {
     ROLE_AVALIADOR,
     ROLE_AUTOR
 
-
 }

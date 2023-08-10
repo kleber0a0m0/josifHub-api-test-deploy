@@ -23,18 +23,24 @@ public class UsuarioService {
         return usuarioRepository.findByEmail(email);
     }
 
-    public Optional<Usuario> getUsuarioByTokenConfirmacaoCadastro(String token) {
-        return usuarioRepository.findByTokenConfirmacaoCadastro(token);
-    }
+//    public Optional<Usuario> getUsuarioByTokenConfirmacaoCadastro(String token) {
+//        return usuarioRepository.findByTokenConfirmacaoCadastro(token);
+//    }
+
+//    public Optional<Usuario> getUsuarioByTokenRecuperacaoSenha (String token) {
+//        return usuarioRepository.findByTokenRecuperacaoSenha(token);
+//    }
 
     public List<Usuario> findAll(){
         return usuarioRepository.findAll();
     }
 
     public Usuario insert(Usuario usuario) {
-        System.out.println("usuario.getSenha()2");
-        System.out.println(usuario.getSenha());
         //TODO: SALVAR A ROLE DO USUARIO
+        return usuarioRepository.save(usuario);
+    }
+
+    public Usuario update(Usuario usuario) {
         return usuarioRepository.save(usuario);
     }
 }

@@ -17,6 +17,23 @@ public class MailService {
     @Autowired
     private JavaMailSender mailSender;
 
+    public String getEmailTemplate(String htmlFileName) {
+        try {
+            String filePath = "src/main/resources/templates/mail/" + htmlFileName + ".html";
+            StringBuilder contentBuilder = new StringBuilder();
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath));
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                contentBuilder.append(line);
+            }
+            bufferedReader.close();
+            return contentBuilder.toString();
+        } catch (IOException e) {
+            System.out.println("Erro ao ler o arquivo de template: " + e.getMessage());
+            return "";
+        }
+    }
+
     public void sendMail1(String to, String subject, String htmlContent) {
         MimeMessage message = mailSender.createMimeMessage();
         try {
@@ -32,14 +49,14 @@ public class MailService {
         }
     }
 
-    public void sendMailConfirmarCadastro(String to, String tokenConfirmacaoCadastro) {
-        String htmlContent = getEmailTemplate();
-        htmlContent = htmlContent.replace("{url}", "https://www.bing.com/search?q="+tokenConfirmacaoCadastro);
+    public void sendMailConfirmarCadastro(String email, String tokenConfirmacaoCadastro) {
+        String htmlContent = getEmailTemplate("confirmar-cadastro");
+        htmlContent = htmlContent.replace("{url}", "https://www.bing.com/search?q="+tokenConfirmacaoCadastro);//TODO: trocar o bing pelo link do front
 
         MimeMessage message = mailSender.createMimeMessage();
         try {
             MimeMessageHelper helper = new MimeMessageHelper(message, true);
-            helper.setTo(to);
+            helper.setTo(email);
             helper.setSubject("Confirmação de cadastro");
             helper.setText(htmlContent, true);
             mailSender.send(message);
@@ -49,20 +66,21 @@ public class MailService {
         }
     }
 
-    private String getEmailTemplate() {
+    public void sendMailRecuperarSenha(String email, String tokenRecuperacaoSenha) {
+
+        String htmlContent = getEmailTemplate("recuperar-senha");
+        htmlContent = htmlContent.replace("{url}", "https://www.bing.com/search?q="+tokenRecuperacaoSenha);//TODO: trocar o bing pelo link do front
+
+        MimeMessage message = mailSender.createMimeMessage();
         try {
-            String filePath = "src/main/resources/templates/mail/confirmar-cadastro.html";
-            StringBuilder contentBuilder = new StringBuilder();
-            BufferedReader bufferedReader = new BufferedReader(new FileReader(filePath));
-            String line;
-            while ((line = bufferedReader.readLine()) != null) {
-                contentBuilder.append(line);
-            }
-            bufferedReader.close();
-            return contentBuilder.toString();
-        } catch (IOException e) {
-            System.out.println("Erro ao ler o arquivo de template: " + e.getMessage());
-            return "";
+            MimeMessageHelper helper = new MimeMessageHelper(message, true);
+            helper.setTo(email);
+            helper.setSubject("Recuperação de senha");
+            helper.setText(htmlContent, true);
+            mailSender.send(message);
+            System.out.println("Email enviado com sucesso!");
+        } catch (MessagingException e) {
+            System.out.println("Erro ao enviar o email: " + e.getMessage());
         }
     }
 }

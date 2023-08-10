@@ -12,11 +12,14 @@ import org.springframework.stereotype.Service;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.util.UUID;
 
 @Service
 public class TokenService {
 
     Integer VALIDADE_TOKEN_LOGIN_HORAS = 48;
+
+    Integer VALIDADE_TOKEN_REC_SENHA_HORAS = 1;
     Integer VALIDADE_TOKEN_CONFIRMACAO_EMAIL_HORAS = 1;
 
     //TODO adicionar secret no aplicattion.properties com o @Value + variavel de ambiente
@@ -32,20 +35,22 @@ public class TokenService {
                     .withExpiresAt(dataExpiracao(VALIDADE_TOKEN_LOGIN_HORAS))
                     .sign(algoritmo);
         } catch (JWTCreationException exception){
-            throw new RuntimeException("Erro ao gerrar token jwt", exception);
+            throw new RuntimeException("Erro ao gerar token jwt", exception);
         }
     }
 
-    public String gerarTokenConfirmacaoCadastro(UsuarioCadastroDTO usuarioCadastroDTO) {
+    public String gerarTokenConfirmacaoCadastro(Usuario usuario) {
         try {
             var algoritmo = Algorithm.HMAC256(secret);
             return JWT.create()
                     .withIssuer("josifHub-api")
-                    .withSubject(usuarioCadastroDTO.email())
+                    .withSubject(usuario.getEmail())
+                    .withClaim("hashid", usuario.getHashid().toString())
+                    .withClaim("tipo", "confirmar-cadastro")
                     .withExpiresAt(dataExpiracao(VALIDADE_TOKEN_CONFIRMACAO_EMAIL_HORAS))
                     .sign(algoritmo);
         } catch (JWTCreationException exception){
-            throw new RuntimeException("Erro ao gerrar token jwt", exception);
+            throw new RuntimeException("Erro ao gerar token jwt", exception);
         }
     }
 
@@ -65,4 +70,19 @@ public class TokenService {
             throw new RuntimeException("Token JWT inválido ou expirado!");
         }
     }
+
+    public String gerarTokenRecuperacaoSenha(Usuario usuario) {
+        try {
+            var algoritmo = Algorithm.HMAC256(secret);
+            return JWT.create()
+                    .withIssuer("josifHub-api")
+                    .withSubject(usuario.getEmail())
+                    .withExpiresAt(dataExpiracao(VALIDADE_TOKEN_REC_SENHA_HORAS))
+                    .sign(algoritmo);
+        } catch (JWTCreationException exception){
+            throw new RuntimeException("Erro ao gerar token jwt", exception);
+        }
+    }
+
+
 }
