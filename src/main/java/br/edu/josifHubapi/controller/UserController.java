@@ -6,9 +6,12 @@ import br.edu.josifHubapi.dto.ConfirmacaoCadastroDTO;
 import br.edu.josifHubapi.dto.UsuarioCadastroDTO;
 import br.edu.josifHubapi.dto.UsuarioRecuperarSenhaDTO;
 import br.edu.josifHubapi.enums.SituacaoUsuario;
+import br.edu.josifHubapi.enums.TipoToken;
 import br.edu.josifHubapi.security.TokenService;
 import br.edu.josifHubapi.service.MailService;
 import br.edu.josifHubapi.service.UsuarioService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,10 +40,10 @@ public class UserController {
 
     BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
+    public HashMap<String, Object> response = new HashMap<>();
+
     @PostMapping
     public ResponseEntity<HashMap> insert(@RequestBody UsuarioCadastroDTO usuarioDTO) {
-        HashMap<String, Object> response = new HashMap<>();
-
         if (usuarioService.getUsuarioByEmail(usuarioDTO.email()).isPresent()) {
             response.put("erro", true);
             response.put("mensagem", "Já existe um usuário cadastrado com esse e-mail.");
@@ -50,7 +53,10 @@ public class UserController {
         String senhaCriptografada = passwordEncoder.encode(usuarioDTO.senha());
 
         Usuario usuario = new Usuario(usuarioDTO.email(),senhaCriptografada);
-        var token = tokenService.gerarTokenConfirmacaoCadastro(usuario);
+        usuario.setSituacao(SituacaoUsuario.PENDENTE_VALIDACAO_EMAIL);
+
+        var token = tokenService.gerarToken(usuario, TipoToken.CONFIRMACAO_CADASTRO);
+
         mailService.sendMailConfirmarCadastro(usuario.getEmail(), token);
 
         try {
@@ -68,59 +74,89 @@ public class UserController {
 
     @PostMapping(value = "/confirmar-cadastro/{token}")
     public ResponseEntity<HashMap> confirmarCadastro(@PathVariable("token") String token) {
-        HashMap<String, Object> response = new HashMap<>();
 
-        if(token == null || token.isEmpty()){
-            response.put("erro", true);
-            response.put("mensagem", "Token não informado.");
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
-        }
+       if (tokenService.isTokenValido(token, TipoToken.CONFIRMACAO_CADASTRO)){
+           Usuario usuario = usuarioService.getUsuarioByHashid(tokenService.getHashid(token)).get(); //TODO: Alterar para optional
+           usuario.setSituacao(SituacaoUsuario.EMAIL_VALIDADO);
+           try {
+               usuarioService.update(usuario);
+           } catch (Exception e) {
+               response.put("erro", true);
+               response.put("mensagem", "Erro ao confirmar cadastro.");
+               return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+           }
+           response.put("erro", false);
+           response.put("mensagem", "Email validado com sucesso.");
+           return ResponseEntity.status(HttpStatus.ACCEPTED).body(response);
+       }
 
-        System.out.println(tokenService.getSubject(token));
-        System.out.println(tokenService.getClaim(token, "hashid"));
-
-        Usuario usuario = usuarioService.getUsuarioByTokenConfirmacaoCadastro(token).get();
-
-        if (usuario.getTokenConfirmacaoCadastro().equals(token)) {
-            usuario.setSituacao(SituacaoUsuario.EMAIL_VALIDADO);
-            usuario.setTokenConfirmacaoCadastro(null);
-            return ResponseEntity.ok().build();
-        }
-
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        response.put("erro", true);
+        response.put("mensagem", "Email não validado.");
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
     }
 
-//    @PostMapping(value = "/recuperar-senha/{email}")
-//    public ResponseEntity<Usuario> recuperarSenha(@PathVariable("email") String email) {
-//        Usuario usuario = usuarioService.getUsuarioByEmail(email).get();//TODO: tratar o optional
-//
-//        if (usuario.getEmail().equals(email)) {
-//            String tokenRecuperacaoSenha = tokenService.gerarTokenRecuperacaoSenha(usuario);
-//            usuario.setTokenRecuperacaoSenha(tokenRecuperacaoSenha);
-//            mailService.sendMailRecuperarSenha(usuario.getEmail(), tokenRecuperacaoSenha);
-//            usuarioService.update(usuario);
-//            return ResponseEntity.ok().build();
-//        }
-//
-//        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-//    }
+    @PostMapping(value = "/recuperar-senha/{email}")
+    public ResponseEntity<HashMap> recuperarSenha(@PathVariable("email") String email) {
+        Optional<Usuario> usuario = usuarioService.getUsuarioByEmail(email);
 
-//    @PostMapping(value = "/nova-senha/{token}")
-//    public ResponseEntity<Usuario> novaSenha(@PathVariable("token") String token,@RequestBody UsuarioRecuperarSenhaDTO usuarioRecuperarSenhaDTO) {
-//        Optional<Usuario> usuarioOptional = usuarioService.getUsuarioByTokenRecuperacaoSenha(token);
-//
-//        if (usuarioOptional.isEmpty()) {
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-//        }
-//
-//        var usuario = usuarioOptional.get();
-//        usuario.setSituacao(SituacaoUsuario.EMAIL_VALIDADO);
-//
-//        if (usuario.getTokenRecuperacaoSenha().equals(token)) {
-//            usuario.setSenha(passwordEncoder.encode(usuarioRecuperarSenhaDTO.senha()));
-//            usuario.setTokenRecuperacaoSenha(null);
-//            return ResponseEntity.ok().build();
-//        }
-//        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-//    }
+        try {
+            if (usuario.isPresent()) {
+                String tokenRecuperacaoSenha = tokenService.gerarToken(usuario.get(), TipoToken.RECUPERACAO_SENHA);
+                if (mailService.sendMailRecuperarSenha(usuario.get().getEmail(), tokenRecuperacaoSenha)) {
+                    response.put("erro", false);
+                    response.put("mensagem", "E-mail de recuperação de senha enviado com sucesso.");
+                    return ResponseEntity.ok().body(response);
+                } else {
+                    response.put("erro", true);
+                    response.put("mensagem", "Erro ao enviar e-mail de recuperação de senha.");
+                    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+                }
+            } else {
+                response.put("erro", true);
+                response.put("mensagem", "Nenhum usuário encontrado com esse e-mail.");
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+            }
+        } catch (Exception e) {
+            response.put("erro", true);
+            response.put("mensagem", "Erro ao recuperar senha.");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+    }
+
+    @PostMapping(value = "/nova-senha/{token}")
+    public ResponseEntity<HashMap> novaSenha(@PathVariable("token") String token, @RequestBody UsuarioRecuperarSenhaDTO usuarioRecuperarSenhaDTO) {
+        try {
+            Optional<Usuario> usuario = usuarioService.getUsuarioByHashid(tokenService.getHashid(token));
+
+            if (usuario.isPresent()) {
+
+                if (tokenService.isTokenValido(token, TipoToken.RECUPERACAO_SENHA)) {
+                    usuario.get().setSenha(passwordEncoder.encode(usuarioRecuperarSenhaDTO.senha()));
+                    usuario.get().setSituacao(SituacaoUsuario.EMAIL_VALIDADO);
+
+                    if (usuarioService.update(usuario.get()) == null) {
+                        response.put("erro", true);
+                        response.put("mensagem", "Erro ao alterar senha.");
+                        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+                    }
+                }
+
+                mailService.sendMailNovaSenha(usuario.get().getEmail());
+
+                response.put("erro", false);
+                response.put("mensagem", "Senha alterada com sucesso.");
+                return ResponseEntity.ok().body(response);
+
+            } else {
+
+                response.put("erro", true);
+                response.put("mensagem", "Usuário não encontrado para esse token.");
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
+            }
+        } catch (Exception e) {
+            response.put("erro", true);
+            response.put("mensagem", "Erro ao alterar senha.");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+    }
 }

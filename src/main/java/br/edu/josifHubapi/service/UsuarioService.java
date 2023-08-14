@@ -23,6 +23,9 @@ public class UsuarioService {
         return usuarioRepository.findByEmail(email);
     }
 
+    public Optional<Usuario> getUsuarioByHashid(String hashid) {
+        return usuarioRepository.findByHashid(hashid);
+    }
 //    public Optional<Usuario> getUsuarioByTokenConfirmacaoCadastro(String token) {
 //        return usuarioRepository.findByTokenConfirmacaoCadastro(token);
 //    }

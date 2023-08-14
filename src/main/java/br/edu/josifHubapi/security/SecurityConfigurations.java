@@ -32,8 +32,10 @@ public class SecurityConfigurations {
                             "/swagger-ui.html",
                             "/swagger-ui/**",
                             "/context-path/**",
-                            "/api/v1/usuarios",
+                            "/api/v1/usuarios/**",
                             "/api/v1/login",
+                            "/api/v1/recuperar-senha/**",
+                            "/api/v1/usuarios/nova-senha/**",
                             "/api/v1/usuarios/confirmar-cadastro/**").permitAll();
                     req.anyRequest().authenticated();
                 })

@@ -3,6 +3,7 @@ package br.edu.josifHubapi.controller;
 import br.edu.josifHubapi.domain.Usuario;
 import br.edu.josifHubapi.dto.AutenticacaoDTO;
 import br.edu.josifHubapi.enums.SituacaoUsuario;
+import br.edu.josifHubapi.enums.TipoToken;
 import br.edu.josifHubapi.security.TokenDadosJWT;
 import br.edu.josifHubapi.security.TokenService;
 import br.edu.josifHubapi.service.UsuarioService;
@@ -22,7 +23,7 @@ import java.util.HashMap;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/login")
+@RequestMapping("/api/v1/login")
 public class AutenticacaoController {
 
     @Autowired
@@ -44,16 +45,20 @@ public class AutenticacaoController {
         if (autentication.getPrincipal() instanceof org.springframework.security.core.userdetails.User) {
             User user = (org.springframework.security.core.userdetails.User) autentication.getPrincipal();
             Optional<Usuario> usuario = usuarioService.getUsuarioByEmail(user.getUsername());
-            if(usuario.isEmpty() || usuario.get().getSituacao() != SituacaoUsuario.EMAIL_VALIDADO) {
+
+            if(usuario.get().getSituacao() == SituacaoUsuario.PENDENTE_VALIDACAO_EMAIL) {
                 response.put("erro", true);
                 response.put("mensagem", "Email do usuário não foi validado.");
                 return ResponseEntity.status(HttpStatus.LOCKED).body(response);
 
             }
-            var tokenJwt = tokenService.gerarToken(usuario.get());
+
+            var tokenJwt = tokenService.gerarToken(usuario.get(), TipoToken.LOGIN);
             return ResponseEntity.ok(new TokenDadosJWT(tokenJwt));
         } else {
-            return ResponseEntity.badRequest().build();
+            response.put("erro", true);
+            response.put("mensagem", "Não foi possível efetuar o login.");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
         }
     }
 }
