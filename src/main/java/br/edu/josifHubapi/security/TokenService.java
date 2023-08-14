@@ -97,7 +97,7 @@ public class TokenService {
                 JWT.require(algoritmo)
                         .withIssuer("josifHub-api")
                         .withClaim("tipo", TipoToken.CONFIRMACAO_CADASTRO.toString())
-                        .withClaim("hashid", getSubject(token))
+                        .withClaim("hashid", getHashid(token))
                         .build()
                         .verify(token);
                 return true;

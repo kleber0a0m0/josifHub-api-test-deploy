@@ -57,7 +57,9 @@ public class UserController {
 
         var token = tokenService.gerarToken(usuario, TipoToken.CONFIRMACAO_CADASTRO);
 
+
         mailService.sendMailConfirmarCadastro(usuario.getEmail(), token);
+        System.err.println("token_CONFIRMACAO_CADASTRO: " + token);
 
         try {
             usuarioService.insert(usuario);

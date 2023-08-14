@@ -54,6 +54,7 @@ public class MailService {
     public void sendMailConfirmarCadastro(String email, String tokenConfirmacaoCadastro) {
         String htmlContent = getEmailTemplate("confirmar-cadastro");
         htmlContent = htmlContent.replace("{url}", "https://www.bing.com/search?q="+tokenConfirmacaoCadastro);//TODO: trocar o bing pelo link do front
+        System.err.println("tokenConfirmacaoCadastro: "+tokenConfirmacaoCadastro);
 
         MimeMessage message = mailSender.createMimeMessage();
         try {
@@ -72,6 +73,7 @@ public class MailService {
 
         String htmlContent = getEmailTemplate("recuperar-senha");
         htmlContent = htmlContent.replace("{url}", "https://www.bing.com/search?q="+tokenRecuperacaoSenha);//TODO: trocar o bing pelo link do front
+        System.err.println("tokenRecuperacaoSenha: "+tokenRecuperacaoSenha);
 
         MimeMessage message = mailSender.createMimeMessage();
         try {
