@@ -11,7 +11,7 @@ RUN mvn clean package -DskipTests
 FROM openjdk:17.0.1-jdk-slim
 
 # Copia o arquivo JAR gerado na primeira etapa para o contêiner de execução
-COPY --from=build /target/0.0.1-SNAPSHOT.jar demo.jar
+COPY --from=build /target/josifHub-api.jar demo.jar
 
 # Expõe a porta 8080 para o tráfego externo
 EXPOSE 8080
